@@ -19,32 +19,130 @@ STEP-4: Arrange the characters of the keyword in sorted order and the correspond
 STEP-5: Read the characters row wise or column wise in the former order to get the cipher text.
 
 # PROGRAM
-~~~
-def encrypt_rail_fence(message, rails):
-    length = len(message)
-    rail = [['\n' for _ in range(length)] for _ in range(rails)]
-    row = 0
-    direction = 1
-    for i in range(length):
-        rail[row][i] = message[i]
-        row += direction
-        if row == rails - 1 or row == 0:
-            direction *= -1
-    encrypted = ''
-    for i in range(rails):
-        for j in range(length):
-            if rail[i][j] != '\n':
-                encrypted += rail[i][j]
-    print("Encrypted text:", encrypted)
-def main():
-    message = input("Enter a Secret Message: ").replace(" ", "")
-    rails = int(input("Enter number of rails: "))
-    encrypt_rail_fence(message, rails)
-if __name__ == "__main__":
-    main()
-~~~
+```c
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int main() {
+    char str[1000];
+    int rails, len;
+    int i, j;
+
+    printf("Enter a Secret Message:\n");
+    fgets(str, sizeof(str), stdin);
+    str[strcspn(str, "\n")] = '\0';
+
+    printf("Enter number of rails:\n");
+    scanf("%d", &rails);
+
+    len = strlen(str);
+    char rail[rails][len];
+    for (i = 0; i < rails; i++) {
+        for (j = 0; j < len; j++) {
+            rail[i][j] = '\n';
+        }
+    }
+    int row = 0;
+    int dir_down = 0; 
+
+    for (j = 0; j < len; j++) {
+        rail[row][j] = str[j];
+        if (row == 0)
+            dir_down = 1;
+        else if (row == rails - 1)
+            dir_down = 0;
+        row += dir_down ? 1 : -1;
+    }
+    printf("Encrypted Message: ");
+    for (i = 0; i < rails; i++) {
+        for (j = 0; j < len; j++) {
+            if (rail[i][j] != '\n')
+                printf("%c", rail[i][j]);
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
+```
+
 # OUTPUT
-<img width="1920" height="987" alt="Screenshot 2025-09-12 131550" src="https://github.com/user-attachments/assets/a242f749-ff8a-422e-9dfa-5d466e27d72b" />
+# Ex-4 Rail-Fence-Program
+
+# IMPLEMENTATION OF RAIL FENCE – ROW & COLUMN TRANSFORMATION TECHNIQUE
+
+# AIM:
+
+# To write a C program to implement the rail fence transposition technique.
+
+# DESCRIPTION:
+
+In the rail fence cipher, the plain text is written downwards and diagonally on successive "rails" of an imaginary fence, then moving up when we reach the bottom rail. When we reach the top rail, the message is written downwards again until the whole plaintext is written out. The message is then read off in rows.
+
+# ALGORITHM:
+
+STEP-1: Read the Plain text.
+STEP-2: Arrange the plain text in row columnar matrix format.
+STEP-3: Now read the keyword depending on the number of columns of the plain text.
+STEP-4: Arrange the characters of the keyword in sorted order and the corresponding columns of the plain text.
+STEP-5: Read the characters row wise or column wise in the former order to get the cipher text.
+
+# PROGRAM
+```c
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int main() {
+    char str[1000];
+    int rails, len;
+    int i, j;
+
+    printf("Enter a Secret Message:\n");
+    fgets(str, sizeof(str), stdin);
+    str[strcspn(str, "\n")] = '\0';
+
+    printf("Enter number of rails:\n");
+    scanf("%d", &rails);
+
+    len = strlen(str);
+    char rail[rails][len];
+    for (i = 0; i < rails; i++) {
+        for (j = 0; j < len; j++) {
+            rail[i][j] = '\n';
+        }
+    }
+    int row = 0;
+    int dir_down = 0; 
+
+    for (j = 0; j < len; j++) {
+        rail[row][j] = str[j];
+        if (row == 0)
+            dir_down = 1;
+        else if (row == rails - 1)
+            dir_down = 0;
+        row += dir_down ? 1 : -1;
+    }
+    printf("Encrypted Message: ");
+    for (i = 0; i < rails; i++) {
+        for (j = 0; j < len; j++) {
+            if (rail[i][j] != '\n')
+                printf("%c", rail[i][j]);
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
+```
+
+# OUTPUT
+<img width="1687" height="1007" alt="image" src="https://github.com/user-attachments/assets/70c3fa5b-7bda-465d-97ad-82655ba4d3f5" />
+
 
 # RESULT
-the program is executed successfully
+Thus the implementation of Rail Fence had been executed successfully.
+
+
+
+# RESULT
+Thus the implementation of Rail Fence had been executed successfully.
